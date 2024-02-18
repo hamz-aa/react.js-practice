@@ -1,26 +1,18 @@
+import { useState, useEffect } from "react";
+import BlogList from "./BlogList";
+
 function Home() {
-  const handleClick = (event) => {
-    console.log("Hello Bro");
+  const [blogs, setBlogs] = useState(null);
 
-    // we can get event object from the function called through onClick
-    // without specifying it as a parameter in the onClick
-    console.log(event);
-  };
-
-  const handleClickAgain = (name) => {
-    console.log("Hello " + name);
-  };
+  useEffect(() => {
+    fetch("http://localhost:8000/blogs")
+      .then((res) => res.json())
+      .then((data) => setBlogs(data));
+  }, []);
 
   return (
     <div className="home">
-      <h2>Homepage</h2>
-
-      {/* adding click events in jsx */}
-      {/* need to pass the reference of the function not invoke it */}
-      <button onClick={handleClick}>Click Me</button>
-
-      {/* if we want to invoke a function we call it inside an anonymous function */}
-      <button onClick={() => handleClickAgain("Hamza")}>Click Me Again</button>
+      {blogs && <BlogList blogs={blogs} title="My Blogs!" />}
     </div>
   );
 }
