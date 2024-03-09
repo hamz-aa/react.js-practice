@@ -6,16 +6,26 @@ import { v4 as uuidv4 } from "uuid";
 function App() {
   const [role, setRole] = useState("N/A");
   const [employees, setEmployees] = useState([
-    { name: "Hamza", role: "Developer", img: "assets/person-1.jpg" },
-    { name: "Osama", role: "Intern", img: "assets/person-2.jpg" },
-    { name: "John", img: "assets/person-3.jpg" },
-    { name: "Hamza", role: "Developer", img: "assets/person-1.jpg" },
-    { name: "Osama", role: "Intern", img: "assets/person-2.jpg" },
-    { name: "John", img: "assets/person-3.jpg" },
-    { name: "Hamza", role: "Developer", img: "assets/person-1.jpg" },
-    { name: "Osama", role: "Intern", img: "assets/person-2.jpg" },
-    { name: "John", img: "assets/person-3.jpg" },
+    { id: 1, name: "Hamza", role: "Developer", img: "assets/person-1.jpg" },
+    { id: 2, name: "Osama", role: "Intern", img: "assets/person-2.jpg" },
+    { id: 3, name: "John", img: "assets/person-3.jpg" },
+    { id: 4, name: "Hamza", role: "Developer", img: "assets/person-1.jpg" },
+    { id: 5, name: "Osama", role: "Intern", img: "assets/person-2.jpg" },
+    { id: 6, name: "John", img: "assets/person-3.jpg" },
+    { id: 7, name: "Hamza", role: "Developer", img: "assets/person-1.jpg" },
+    { id: 8, name: "Osama", role: "Intern", img: "assets/person-2.jpg" },
+    { id: 9, name: "John", img: "assets/person-3.jpg" },
   ]);
+
+  const updateEmployee = (id, newName, newRole) => {
+    const updatedEmployees = employees.map((employee) => {
+      if (id === employee.id) {
+        return { ...employee, name: newName, role: newRole };
+      }
+      return employee;
+    });
+    setEmployees(updatedEmployees);
+  };
 
   const showEmployees = true;
 
@@ -28,9 +38,11 @@ function App() {
             {employees.map((employee) => (
               <Employee
                 key={uuidv4()}
+                id={employee.id}
                 name={employee.name}
                 role={employee?.role || role}
                 img={employee.img}
+                updateEmployee={updateEmployee}
               />
             ))}
           </div>
